@@ -16,6 +16,7 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SwipeDismissBehavior;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.text.TextUtils;
@@ -249,7 +250,7 @@ public final class TSnackbar {
     public TSnackbar addIcon(int resource_id, int size) {
         final TextView tv = mView.getMessageView();
 
-        tv.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(Bitmap.createScaledBitmap(((BitmapDrawable) (mContext.getResources().getDrawable(resource_id))).getBitmap(), size, size, true)), null, null, null);
+        tv.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(mContext.getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) (ContextCompat.getDrawable(mContext, resource_id))).getBitmap(), size, size, true)), null, null, null);
 
         return this;
     }
@@ -807,7 +808,7 @@ public final class TSnackbar {
 
     final class Behavior extends SwipeDismissBehavior<SnackbarLayout> {
         @Override
-        public boolean canSwipeDismissView(View child) {
+        public boolean canSwipeDismissView(@NonNull View child) {
             return child instanceof SnackbarLayout;
         }
 
